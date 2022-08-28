@@ -65,6 +65,9 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    domains: ["assets-eu-01.kc-usercontent.com", "dev-onrewind.imgix.net", "via.placeholder.com"]
+  }
 };
 
 module.exports = nextConfig;

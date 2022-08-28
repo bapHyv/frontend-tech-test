@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 function Footer({ dataFooter }: any) {
+  // PROPS
   const { copyright, legalLinks, logo, menuItems, socialItems } = dataFooter;
 
   return (
@@ -18,7 +19,7 @@ function Footer({ dataFooter }: any) {
         </ul>
       </div>
       <div className="logo-footer">
-        <img src={logo.url} width={235} height={100} />
+        <Image src={logo.url} width={235} height={100} />
       </div>
     </footer>
   );
