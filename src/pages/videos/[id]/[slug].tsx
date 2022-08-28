@@ -5,15 +5,19 @@ import Link from 'next/link';
 import Cms from 'src/services/Cms';
 import { useQuery } from 'react-query';
 
+import generateRandomId from '$utils/generateRandomId';
+
+import {Tag, Category, SectionContent, OriginsEventCard, OriginsVideoCard, Image} from "@origins-digital/types/ott"
+
 export async function getStaticPaths() {
   const dataPage = await Cms.getPageContent('home', {});
 
-  const videoIdsAndSlugs = (components) => {
+  const videoIdsAndSlugs = (components: SectionContent) => {
     const videos = components.find(
-      (component) => component._kenticoItemType === 'section_static_carousel',
+      (component: OriginsEventCard | OriginsVideoCard | Image) => component._kenticoItemType === 'section_static_carousel',
     ).items;
 
-    return videos.map((video) => {
+    return videos.map((video: OriginsVideoCard) => {
       return {
         params: {
           id: video.itemId,
@@ -65,7 +69,7 @@ export default function Videos({ dataVideo }) {
       <h1 className="title-video-detail">{video.name}</h1>
       <div className="informations-video-detail">
         <div className="categories-video-detail">
-          CATEGORIES: {video.Categories.map((cat) => (
+          CATEGORIES: {video.Categories.map((cat: Category) => (
             <span className="category-video-detail">
                 {cat.name}
             </span>
@@ -73,8 +77,8 @@ export default function Videos({ dataVideo }) {
         </div>
         <div className="tags-video-detail">
           TAGS:{' '}
-          {video.tags.map((tag) => (
-            <span className="tag-video-detail">{"#" + tag.name}</span>
+          {video.tags.map((tag: Tag) => (
+            <span key={generateRandomId(15)} className="tag-video-detail">{"#" + tag.name}</span>
           ))}
         </div>
         <p className="description-video-detail">
