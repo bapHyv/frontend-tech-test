@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useScrollPosition } from '$utils/useScrollPosition';
 
 function Header({ dataHeader }: any): JSX.Element {
+
   // PROPS
   const { favicon, fixed, liveEvents, logo, menuItems } = dataHeader;
 
@@ -32,7 +33,7 @@ function Header({ dataHeader }: any): JSX.Element {
   return (
     <header className={showOnScroll ? 'hidden-nav-bar' : ''}>
       <div className="logo">
-        <img src={logo.url} width={235} height={100} />
+        <Image src={logo.url} width={235} height={100} />
       </div>
       <nav className="desktop-nav">
         <ul>

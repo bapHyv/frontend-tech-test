@@ -1,14 +1,17 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
-import { useWindowSize } from '$utils/useWindowSize';
+import {CarouselSectionDTO, OriginsVideoCard} from '@origins-digital/types/ott';
 
-export default function Carousel({ dataCarousel }): JSX.Element {
+export default function Carousel({ dataCarousel }: CarouselSectionDTO): JSX.Element {  
+  // PROPS
   const { items, itemsDisplayType, showMoreButtonRedirection, title } = dataCarousel;
 
+  // STATE
   const [indexSlide, setIndexSlide] = useState(0);
   const [windowSize, setWindowSize] = useState({ width: undefined, height: undefined });
 
+  // METHODS
   useEffect(() => {
     function handleResize() {
       setWindowSize({
@@ -21,11 +24,11 @@ export default function Carousel({ dataCarousel }): JSX.Element {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const computeLength = (items) => {
+  const computeLength = (items: OriginsVideoCard[]) => {
     return windowSize.width > 768 ? Math.ceil(items.length / 3) : items.length;
   };
 
-  const makeItemsContainers = (items) => new Array(computeLength(items)).fill(0);
+  const makeItemsContainers = (items: OriginsVideoCard[]) => new Array(computeLength(items)).fill(0);
 
   const separateItems = (items: any[]): any[] => {
     let increment = 0;
@@ -49,38 +52,38 @@ export default function Carousel({ dataCarousel }): JSX.Element {
     return arr;
   };
 
-  const enableButton = (items) => items.length < 3;
+  const enableButton = (items: OriginsVideoCard[]) => items.length < 3;
 
   const changeSlideLeft = () => {
     if (indexSlide > 0) setIndexSlide(indexSlide - 1);
   };
 
-  const changeSlideRight = (items) => {
+  const changeSlideRight = (items: OriginsVideoCard[]) => {
     if (indexSlide < computeLength(items) - 1) setIndexSlide(indexSlide + 1);
   };
+
+  const hideLeftArrow = () => indexSlide === 0
+  const hideRightArrow = (items: OriginsVideoCard[]) => indexSlide === computeLength(items) - 1
 
   return (
     <div className="carousel-container">
       <img
         onClick={() => changeSlideLeft()}
         src="/arrow_slider.png"
-        //   width={100}
-        //   height={100}
-        className={'carousel-arrow ' + (enableButton(items) ? 'hidden-arrow' : '')}
+        className={'carousel-arrow ' + (enableButton(items) || hideLeftArrow() ? 'hidden-arrow' : '')}
         id="carousel-left-arrow"
       />
       <img
         onClick={() => changeSlideRight(items)}
         src="/arrow_slider.png"
-        //   width={100}
-        //   height={100}
-        className={'carousel-arrow ' + (enableButton(items) ? 'hidden-arrow' : '')}
+        className={'carousel-arrow ' + (enableButton(items) || hideRightArrow(items) ? 'hidden-arrow' : '')}
         id="carousel-right-arrow"
       />
 
       <div className="carousel-items-container">
         {makeItemsContainers(items).map((e, i) => (
           <div
+          key={"this_is_an_id" + i.toString()}
             className={
               'carousel-item ' +
               (i < indexSlide ? 'left ' : '') +
@@ -88,20 +91,20 @@ export default function Carousel({ dataCarousel }): JSX.Element {
               (i >= indexSlide + 2 ? 'far' : '')
             }
           >
-            {separateItems(items)[i].map((item) => (
-              <>
-                <div className={'img-and-infos-container'}>
-                  <p className="name-img-carousel">{item.name}</p>
-                  <img
-                    data-hover="for-hover-effect"
-                    src={item.poster ? item.poster : item.posterPortrait}
-                    alt={item.name}
-                  />
-                  <Link href={`/videos/${item.itemId}/${item.name.toLowerCase().split(' ').join('-')}`}>
-                    <p className="link-img-carousel">Voir la vidéo</p>
-                  </Link>
-                </div>
-              </>
+            {separateItems(items)[i].map((item: OriginsVideoCard) => (
+              <div key={item.itemId} className={'img-and-infos-container'}>
+                <p className="name-img-carousel">{item.name}</p>
+                <img
+                  data-hover="for-hover-effect"
+                  src={item.poster ? item.poster : item.posterPortrait}
+                  alt={item.name}
+                />
+                <Link
+                  href={`/videos/${item.itemId}/${item.name.toLowerCase().split(' ').join('-')}`}
+                >
+                  <p className="link-img-carousel">Voir la vidéo</p>
+                </Link>
+              </div>
             ))}
           </div>
         ))}

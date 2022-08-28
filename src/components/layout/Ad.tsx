@@ -1,4 +1,6 @@
-export default function Ad({ dataAd }): JSX.Element {
+import {AdvertisementSection} from '@origins-digital/types/ott'
+
+export default function Ad({ dataAd }: AdvertisementSection): JSX.Element {
   const { image, redirectionTarget } = dataAd;
   return (
     <div className="ad-container">

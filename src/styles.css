@@ -21,6 +21,26 @@ html {
   --title-size-phone: 30px;
 }
 
+::-webkit-scrollbar {
+  width: 15px;
+  background-color: var(--bg-color);
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 1px 1px 5px black; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary); 
+  border-radius: 10px;
+  box-shadow: inset 1px 1px 5px black; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--highlight-primary); 
+}
+
 .logo {
   display: grid;
   place-content: center;
@@ -185,8 +205,12 @@ header a:hover {
   width: 20px;
   border-radius: 50%;
   margin: 0 5px;
-  /* background-color: var(--fg-color); */
-  background-color: red;
+  background-image: linear-gradient(
+    to right bottom,
+    var(--fg-color),
+    var(--highlight-primary),
+    var(--bg-color)
+  );
   cursor: pointer;
 }
 
@@ -271,7 +295,7 @@ header a:hover {
 }
 
 .far {
-  left: 3000px;
+  left: 200vw;
 }
 
 .img-and-infos-container {
@@ -325,6 +349,13 @@ header a:hover {
   border-radius: 10px;
 
   cursor: pointer;
+}
+
+.duration-video-carousel {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  color: var(--fg-color);
 }
 
 .img-and-infos-container img {
@@ -486,7 +517,7 @@ header a:hover {
   border-radius: 50%;
   background-color: white;
   bottom: calc((30px - 15px) / 2);
-  left: calc((5% + ((95% - 90%) / 2)) - (15px / 2) );
+  left: calc((5% + ((95% - 90%) / 2)) - (15px / 2));
 }
 
 /* ----------- VIDEO DETAIL PAGE END ------------ */
@@ -647,6 +678,10 @@ footer {
     top: 75%;
   }
 
+  .duration-video-carousel {
+    display: none;
+  }
+
   .carousel-container {
     height: 30vh;
   }
@@ -658,7 +693,6 @@ footer {
   /* ---------- CAROUSEL COMPONENT START ------------ */
 
   /* ################################################ */
-
 
   .ad-container {
     height: 45vh;
@@ -672,6 +706,10 @@ footer {
   }
 
   /* ---------- VIDEO DETAIL PAGE START ------------- */
+
+  .video-detail-container {
+    height: 100vh;
+  }
 
   .img-and-ctrls-container {
     margin: 5vh auto 0px auto;
@@ -719,9 +757,9 @@ footer {
     right: calc((85% - 80%) / 2);
     bottom: calc((30px - 5px) / 2);
   }
-  
+
   .dot-duration {
-    left: calc((15% + ((88% - 80%) / 2)) - (15px / 2) );
+    left: calc((15% + ((88% - 80%) / 2)) - (15px / 2));
   }
 
   .informations-video-detail {

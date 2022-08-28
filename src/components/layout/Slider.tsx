@@ -1,13 +1,20 @@
-import { AnyMxRecord } from 'dns';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-function Slider({ dataSlider }: any): JSX.Element {
+import {v4 as uuidv4} from "uuid"
+
+import {SlideSection, OriginsVideoCard} from '@origins-digital/types/ott';
+
+function Slider({ dataSlider }: SlideSection): JSX.Element {
+  
+  // PROPS
   const { displayRatio, items, title } = dataSlider;
 
+  // STATE
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const dots = (items: any[]) => {
+  // METHODS
+  const dots = (items: OriginsVideoCard[]) => {
     return new Array(items.length).fill(0);
   };
 
@@ -19,7 +26,7 @@ function Slider({ dataSlider }: any): JSX.Element {
     currentSlide === 0 ? setCurrentSlide(items.length - 1) : setCurrentSlide(currentSlide - 1);
   };
 
-  const changeSlideDot = (index) => {
+  const changeSlideDot = (index: number) => {
     setCurrentSlide(index);
   };
 
@@ -29,28 +36,28 @@ function Slider({ dataSlider }: any): JSX.Element {
         <img
           onClick={() => changeSlideLeft()}
           src="/arrow_slider.png"
-          //   width={100}
-          //   height={100}
+          width={100}
+          height={100}
           className="arrow"
           id="left-arrow"
         />
         <img
           onClick={() => changeSlideRight()}
           src="/arrow_slider.png"
-          //   width={100}
-          //   height={100}
+          width={100}
+          height={100}
           className="arrow"
           id="right-arrow"
         />
       </div>
-      {items.map((item, index: number) => (
-        <div className={"img-and-dot-container " + (currentSlide === index ? "visible" : "")}>
+      {items.map((item: OriginsVideoCard, index: number) => (
+        <div key={item.itemId} className={'img-and-dot-container ' + (currentSlide === index ? 'visible' : '')}>
           <p className="title-video">{item.name}</p>
-          <img key={item.itemId} src={item.poster} alt={item.name} />
+          <img src={item.poster} alt={item.name} />
           <div className="dots-container">
             {dots(items).map((e, i) => (
               <div
-                key={item.itemId + i}
+                key={uuidv4()}
                 onClick={() => changeSlideDot(i)}
                 className={'dot ' + (i === index ? 'current-slide' : '')}
               ></div>
