@@ -9,17 +9,18 @@ import Ad from '$components/layout/Ad';
 import { DEFAULT_LANGUAGE, KENTICO_HARDCODED_PAGES } from '$utils/constants';
 import { useQuery } from 'react-query';
 
+import {KenticoPageLayoutDTO, SectionContent, SlideSection, CarouselSectionDTO, AdvertisementSection } from '@origins-digital/types/ott';
+
 type IProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 function Home({ page }: IProps): JSX.Element | null {
-
-  const { data: dataPage, status: statusPage } = useQuery(['dataPage'], () =>
-  Cms.getPageContent('home', {}),
-);
-
-  // Return the data needed for the components  
-  const getDataComponent = (data, key: string): any => {
-    return data.find((dataComponent) => dataComponent._kenticoItemType === key);
+  const { data: dataPage, status: statusPage }: {data: KenticoPageLayoutDTO, status: string} = useQuery(['dataPage'], () =>
+    Cms.getPageContent('home', {}),
+  );
+  
+  // Return the data needed for the components
+  const getDataComponent = ( data: SectionContent, key: string ): SlideSection[] | CarouselSectionDTO[] | AdvertisementSection[] => {
+    return data.find((dataComponent: SectionContent) => dataComponent._kenticoItemType === key);
   };
 
   if (statusPage === 'loading') return <FullPageLoader />;

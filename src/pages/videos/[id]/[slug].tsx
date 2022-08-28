@@ -41,7 +41,6 @@ export async function getStaticProps({ params }) {
 
 export default function Videos({ dataVideo }) {
   const { relatedVideos, video } = dataVideo;
-  console.log(dataVideo);
 
   const lorem = `Lorem ipsum, 
   dolor sit amet consectetur adipisicing elit. 

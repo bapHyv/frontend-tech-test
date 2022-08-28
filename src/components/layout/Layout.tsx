@@ -8,8 +8,10 @@ import { useQuery } from 'react-query';
 
 import Cms from '../../services/Cms';
 
+import {InitConfig} from "@origins-digital/types/ott"
+
 function Layout({ children }: { children: React.ReactNode }): JSX.Element {
-  const { data: dataNav, status: statusNav } = useQuery(['dataNav'], () => Cms.getConfig());
+  const { data: dataNav, status: statusNav }: {data: InitConfig, status: string} = useQuery(['dataNav'], () => Cms.getConfig());
 
   if (statusNav === 'loading') return <FullPageLoader />;
 

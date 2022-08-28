@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 
 import {v4 as uuidv4} from "uuid"
 
-function Slider({ dataSlider }: any): JSX.Element {
+import {SlideSection, OriginsVideoCard} from '@origins-digital/types/ott';
+
+function Slider({ dataSlider }: SlideSection): JSX.Element {
+  
   // PROPS
   const { displayRatio, items, title } = dataSlider;
 
@@ -11,7 +14,7 @@ function Slider({ dataSlider }: any): JSX.Element {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // METHODS
-  const dots = (items: any[]) => {
+  const dots = (items: OriginsVideoCard[]) => {
     return new Array(items.length).fill(0);
   };
 
@@ -23,7 +26,7 @@ function Slider({ dataSlider }: any): JSX.Element {
     currentSlide === 0 ? setCurrentSlide(items.length - 1) : setCurrentSlide(currentSlide - 1);
   };
 
-  const changeSlideDot = (index) => {
+  const changeSlideDot = (index: number) => {
     setCurrentSlide(index);
   };
 
@@ -47,7 +50,7 @@ function Slider({ dataSlider }: any): JSX.Element {
           id="right-arrow"
         />
       </div>
-      {items.map((item, index: number) => (
+      {items.map((item: OriginsVideoCard, index: number) => (
         <div key={item.itemId} className={'img-and-dot-container ' + (currentSlide === index ? 'visible' : '')}>
           <p className="title-video">{item.name}</p>
           <img src={item.poster} alt={item.name} />

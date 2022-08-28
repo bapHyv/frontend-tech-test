@@ -279,9 +279,7 @@ header a:hover {
 
   filter: brightness(1);
 
-  transition: filter 0.8s ease-in-out;
-
-  /* transition: left 2s ease-in-out, filter 0.8s ease-in-out; */
+  transition: left 0.5s ease-in-out, filter 0.8s ease-in-out;
   z-index: 2;
 }
 

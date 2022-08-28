@@ -2,7 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-function Footer({ dataFooter }: any) {
+import {Footer} from '@origins-digital/types/ott'
+
+function Footer({ dataFooter }: Footer) {
   // PROPS
   const { copyright, legalLinks, logo, menuItems, socialItems } = dataFooter;
 
